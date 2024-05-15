@@ -35,9 +35,9 @@ export default function swDev() {
     return outputArray;
   }
 
-  let swUrl = `${process.env.PUBLIC_URL}/sw.js`;
+  // let swUrl = `sw.js`;
   navigator.serviceWorker
-    .register(swUrl)
+    .register("sw.js")
     .then((registration) => {
       console.log("Service Worker registered:", registration);
 
