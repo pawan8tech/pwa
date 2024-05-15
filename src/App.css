@@ -1,5 +1,15 @@
 .App {
   text-align: center;
+} 
+.navbar{
+  width:100%;
+  overflow-x: hidden;
+}
+.navbar a{
+  color: white;
+} 
+.navbar a:hover{
+  color: #ddd
 }
 
 .App-logo {
