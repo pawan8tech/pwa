@@ -1,17 +1,12 @@
 const cacheName = "appV1";
 const urlsToCache = [
   "static/js/bundle.js",
-  // "/manifest.json",
-  "/index.html",
-  // "/",
-  // "/sw.js",
-
   "/users",
   "https://jsonplaceholder.typicode.com/users",
   "/User",
   "/About",
-  // "/favicon.ico",
-  // "/logo192.png",
+  "/index.html",
+  "/manifest.json",
 ];
 
 self.addEventListener("install", (event) => {
