@@ -15,6 +15,7 @@ const User = () => {
         localStorage.setItem("users", JSON.stringify(result));
         setMode("online");
       } catch (error) {
+        console.log("somthing else");
         const collection = localStorage.getItem("users");
         setData(JSON.parse(collection));
         setMode("offline");
