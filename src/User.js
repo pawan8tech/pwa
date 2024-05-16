@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 const User = () => {
   const [data, setData] = useState([]);
-  const [mode, setMode] = useState("online");
+  // const [mode, setMode] = useState("online");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -13,39 +13,59 @@ const User = () => {
         const result = await response.json();
         setData(result);
         // localStorage.setItem("users", JSON.stringify(result));
-        setMode("online");
+        // setMode("online");
       } catch (error) {
         console.log("somthing else", error);
         // const collection = localStorage.getItem("users");
         // setData(JSON.parse(collection));
-        setMode("offline");
+        // setMode("offline");
       }
     };
 
     fetchData();
 
-    const handleOnlineStatusChange = () => {
-      setMode(navigator.onLine ? "online" : "offline");
-    };
+    // const handleOnlineStatusChange = () => {
+    //   setMode(navigator.onLine ? "online" : "offline");
+    // };
 
-    window.addEventListener("online", handleOnlineStatusChange);
-    window.addEventListener("offline", handleOnlineStatusChange);
+    // window.addEventListener("online", handleOnlineStatusChange);
+    // window.addEventListener("offline", handleOnlineStatusChange);
 
     return () => {
-      window.removeEventListener("online", handleOnlineStatusChange);
-      window.removeEventListener("offline", handleOnlineStatusChange);
+      // window.removeEventListener("online", handleOnlineStatusChange);
+      // window.removeEventListener("offline", handleOnlineStatusChange);
     };
   }, []);
 
+  // const User = () => {
+  //   const [data, setData] = useState([]);
+  //   const [mode, setMode] = useState("online");
+  //   useEffect(() => {
+  //     let url = "https://jsonplaceholder.typicode.com/users";
+  //     fetch(url)
+  //       .then((response) => {
+  //         response.json().then((result) => {
+  //           setData(result);
+  //           localStorage.setItem("users", JSON.stringify(result));
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         let collection = localStorage.getItem("users");
+  //         setData(JSON.parse(collection));
+  //         setMode("offline");
+  //       });
+  //   }, []);
+
+  // console.log(data, "data");
   return (
     <div>
-      <div>
+      {/* <div>
         {mode === "offline" ? (
           <div className="alert alert-warning" role="alert">
             You are in offline mode or some issue with connection
           </div>
         ) : null}
-      </div>
+      </div> */}
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
