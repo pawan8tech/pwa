@@ -12,12 +12,12 @@ const User = () => {
         );
         const result = await response.json();
         setData(result);
-        localStorage.setItem("users", JSON.stringify(result));
+        // localStorage.setItem("users", JSON.stringify(result));
         setMode("online");
       } catch (error) {
-        console.log("somthing else");
-        const collection = localStorage.getItem("users");
-        setData(JSON.parse(collection));
+        console.log("somthing else", error);
+        // const collection = localStorage.getItem("users");
+        // setData(JSON.parse(collection));
         setMode("offline");
       }
     };
@@ -37,26 +37,6 @@ const User = () => {
     };
   }, []);
 
-  // const User = () => {
-  //   const [data, setData] = useState([]);
-  //   const [mode, setMode] = useState("online");
-  //   useEffect(() => {
-  //     let url = "https://jsonplaceholder.typicode.com/users";
-  //     fetch(url)
-  //       .then((response) => {
-  //         response.json().then((result) => {
-  //           setData(result);
-  //           localStorage.setItem("users", JSON.stringify(result));
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         let collection = localStorage.getItem("users");
-  //         setData(JSON.parse(collection));
-  //         setMode("offline");
-  //       });
-  //   }, []);
-
-  // console.log(data, "data");
   return (
     <div>
       <div>
