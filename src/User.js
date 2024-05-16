@@ -4,27 +4,26 @@ import { Table } from "react-bootstrap";
 
 const User = () => {
   const [data, setData] = useState([]);
-  const [mode, setMode] = useState("online");
   useEffect(() => {
     let url = "https://jsonplaceholder.typicode.com/users";
     fetch(url)
       .then((response) => {
         response.json().then((result) => {
           setData(result);
-          localStorage.setItem("users", JSON.stringify(result));
+          // localStorage.setItem("users", JSON.stringify(result));
         });
       })
       .catch((error) => {
-        let collection = localStorage.getItem("users");
-        setData(JSON.parse(collection));
-        setMode("offline");
+        console.log("somthing else", error);
+        // let collection = localStorage.getItem("users");
+        // setData(JSON.parse(collection));
       });
   }, []);
 
   // const User = () => {
   // const [data, setData] = useState([]);
-  // // const [mode, setMode] = useState("online");
-  // // useEffect(() => {
+  // const [mode, setMode] = useState("online");
+  // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
   //       const response = await fetch(
