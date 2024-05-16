@@ -1,7 +1,9 @@
 const cacheName = "appV1";
 const urlsToCache = [
-  "/static/js/bundle.js",
   "/index.html",
+  "/static/js/bundle.js",
+  "/favicon.ico",
+  "/logo192.png",
   "/manifest.json",
   "https://jsonplaceholder.typicode.com/users",
   "/",
