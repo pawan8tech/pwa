@@ -1,7 +1,7 @@
 const cacheName = "appV1";
 const urlsToCache = [
   "static/js/bundle.js",
-  "manifest.json",
+  "/manifest.json",
   "/index.html",
   // "/",
   // "/sw.js",
