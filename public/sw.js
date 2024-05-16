@@ -1,7 +1,7 @@
 const cacheName = "appV1";
 const urlsToCache = [
   "static/js/bundle.js",
-  "manifest.json",
+  // "manifest.json",
   "/index.html",
   "/",
   "/sw.js",
@@ -41,12 +41,3 @@ self.addEventListener("fetch", (event) => {
     );
   }
 });
-// self.addEventListener("push", (event) => {
-//   const data = event.data.json();
-//   const options = {
-//     body: data.body,
-//     icon: "/logo192.png",
-//     badge: "/logo192.png",
-//   };
-//   event.waitUntil(self.registration.showNotification(data.title, options));
-// });
