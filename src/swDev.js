@@ -1,5 +1,14 @@
 export default function swDev() {
-  let swUrl = `/sw.js`;
+  function getSwUrl() {
+    let swUrl = `${process.env.PUBLIC_URL}/sw.js`;
+    if (process.env.NODE_ENV === "production") {
+      swUrl = "/your-repo-name/sw.js"; // Adjust your repo name here
+    }
+    return swUrl;
+  }
+
+  const swUrl = getSwUrl();
+
   navigator.serviceWorker.register(swUrl).then(
     (registration) => {
       console.log(
@@ -12,6 +21,21 @@ export default function swDev() {
     }
   );
 }
+
+// export default function swDev() {
+//   let swUrl = `sw.js`;
+//   navigator.serviceWorker.register(swUrl).then(
+//     (registration) => {
+//       console.log(
+//         "ServiceWorker registration successful with scope: ",
+//         registration.scope
+//       );
+//     },
+//     (err) => {
+//       console.error("ServiceWorker registration failed: ", err);
+//     }
+//   );
+// }
 
 // export default function swDev() {
 //   function determineAppServerKey() {
@@ -57,17 +81,4 @@ export default function swDev() {
 //     .catch(function (error) {
 //       console.error("Service Worker registration failed:", error);
 //     });
-// }
-
-//
-// if ("serviceWorker" in navigator) {
-//   window.addEventListener("load", () => {
-//     navigator.serviceWorker.register("/sw.js").then(
-//       (registration) => {
-//       },
-//       (err) => {
-//         console.error("ServiceWorker registration failed: ", err);
-//       }
-//     );
-//   });
 // }
