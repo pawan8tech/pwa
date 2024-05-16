@@ -22,31 +22,29 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
   console.log("Fetch event for ", event.request.url);
-  if (!navigator.onLine) {
-    event.respondWith(
-      (async () => {
-        try {
-          const cache = await caches.open("appV1");
-          const cachedResponse = await cache.match(event.request);
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          const networkResponse = await fetch(event.request);
-          await cache.put(event.request, networkResponse.clone());
-          return networkResponse;
-        } catch (error) {
-          // Log the error and return a cached response
-          console.error("Error fetching and caching:", error);
-          const cache = await caches.open("appV1");
-          const cachedResponse = await cache.match(event.request);
-          return (
-            cachedResponse ||
-            new Response(null, { status: 404, statusText: "Not found" })
-          );
+  event.respondWith(
+    (async () => {
+      try {
+        const cache = await caches.open("appV1");
+        const cachedResponse = await cache.match(event.request);
+        if (cachedResponse) {
+          return cachedResponse;
         }
-      })()
-    );
-  }
+        const networkResponse = await fetch(event.request);
+        await cache.put(event.request, networkResponse.clone());
+        return networkResponse;
+      } catch (error) {
+        // Log the error and return a cached response
+        console.error("Error fetching and caching:", error);
+        const cache = await caches.open("appV1");
+        const cachedResponse = await cache.match(event.request);
+        return (
+          cachedResponse ||
+          new Response(null, { status: 404, statusText: "Not found" })
+        );
+      }
+    })()
+  );
 });
 
 // self.addEventListener("fetch", (event) => {
