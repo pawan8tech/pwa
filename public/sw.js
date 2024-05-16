@@ -1,45 +1,41 @@
 const cacheName = "appV1";
 const urlsToCache = [
-  "static/js/bundle.js",
+  "/static/js/bundle.js",
+  "/manifest.json",
+  "/index.html",
   "/users",
-  "https://jsonplaceholder.typicode.com/users",
   "/User",
   "/About",
-  "/index.html",
-  "/manifest.json",
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(cacheName).then((cache) => {
-      console.log("Caching all data");
-      return cache.addAll(urlsToCache).catch((error) => {
-        console.error("Failed to cache", error);
-      });
+      console.log("cashed all data");
+      return cache.addAll(urlsToCache);
     })
   );
 });
 
 self.addEventListener("fetch", (event) => {
-  console.log("Fetch event for ", event.request.url);
   if (!navigator.online) {
+    // if (event.request.url === "https://jsonplaceholder.typicode.com/users") {
+    //     event.waitUntil(
+    //       this.registration.showNotification("Internet", {
+    //         body: "Data Fetch Successfully",
+    //         icon: "/logo192.png",
+    //       })
+    //     );
+    //   }
     event.respondWith(
-      caches
-        .match(event.request)
-        .then((response) => {
-          if (response) {
-            console.log("Found response in cache:", response);
-            return response;
-          }
+      caches.match(event.request).then((response) => {
+        if (response) {
+          return response;
+        }
 
-          let requestUrl = event.request.clone();
-          return fetch(requestUrl).catch((error) => {
-            console.error("Fetch failed:", error);
-          });
-        })
-        .catch((error) => {
-          console.error("Cache match failed:", error);
-        })
+        let requestUrl = event.request.clone();
+        return fetch(requestUrl);
+      })
     );
   }
 });
@@ -47,44 +43,47 @@ self.addEventListener("fetch", (event) => {
 // const cacheName = "appV1";
 // const urlsToCache = [
 //   "static/js/bundle.js",
-//   "manifest.json",
+//   "/manifest.json",
 //   "/index.html",
-//   "/",
-//   "/sw.js",
+//   "/users",
+//   "https://jsonplaceholder.typicode.com/users",
 //   "/User",
 //   "/About",
-//   // "/favicon.ico",
-//   // "/logo192.png",
 // ];
 
 // self.addEventListener("install", (event) => {
 //   event.waitUntil(
 //     caches.open(cacheName).then((cache) => {
-//       console.log("cashed all data");
-//       return cache.addAll(urlsToCache);
+//       console.log("Caching all data");
+//       return cache.addAll(urlsToCache).catch((error) => {
+//         console.error("Failed to cache", error);
+//       });
 //     })
 //   );
 // });
 
 // self.addEventListener("fetch", (event) => {
+//   console.log("Fetch event for ", event.request.url);
 //   if (!navigator.online) {
-//     //   if (event.request.url === "https://jsonplaceholder.typicode.com/users") {
-//     //     event.waitUntil(
-//     //       this.registration.showNotification("Internet", {
-//     //         body: "Data Fetch Successfully",
-//     //         icon: "/logo192.png",
-//     //       })
-//     //     );
-//     //   }
 //     event.respondWith(
-//       caches.match(event.request).then((response) => {
-//         if (response) {
-//           return response;
-//         }
+//       caches
+//         .match(event.request)
+//         .then((response) => {
+//           if (response) {
+//             console.log("Found response in cache:", response);
+//             return response;
+//           }
 
-//         let requestUrl = event.request.clone();
-//         return fetch(requestUrl);
-//       })
+//           let requestUrl = event.request.clone();
+//           return fetch(requestUrl).catch((error) => {
+//             console.error("Fetch failed:", error);
+//           });
+//         })
+//         .catch((error) => {
+//           console.error("Cache match failed:", error);
+//         })
 //     );
 //   }
 // });
+
+//
