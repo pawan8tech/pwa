@@ -24,7 +24,8 @@ self.addEventListener("fetch", (event) => {
     if (event.request.url === "https://jsonplaceholder.typicode.com/users") {
       event.waitUntil(
         this.registration.showNotification("Internet", {
-          body: "internet not working",
+          body: "Data Fetch Successfully",
+          icon: "/logo192.png",
         })
       );
     }
