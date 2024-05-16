@@ -2,6 +2,7 @@
 import "./App.css";
 import { Navbar, Nav } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import swDev from "./swDev";
 import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./Home";
 import User from "./User";
@@ -16,6 +17,8 @@ function App() {
 
     window.addEventListener("online", handleOnlineStatusChange);
     window.addEventListener("offline", handleOnlineStatusChange);
+
+    swDev();
 
     return () => {
       window.removeEventListener("online", handleOnlineStatusChange);

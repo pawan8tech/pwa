@@ -1,62 +1,62 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
+
 const User = () => {
   const [data, setData] = useState([]);
-  // const [mode, setMode] = useState("online");
+  const [mode, setMode] = useState("online");
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://jsonplaceholder.typicode.com/users"
-        );
-        const result = await response.json();
-        setData(result);
-        // localStorage.setItem("users", JSON.stringify(result));
-        // setMode("online");
-      } catch (error) {
-        console.log("somthing else", error);
-        // const collection = localStorage.getItem("users");
-        // setData(JSON.parse(collection));
-        // setMode("offline");
-      }
-    };
-
-    fetchData();
-
-    // const handleOnlineStatusChange = () => {
-    //   setMode(navigator.onLine ? "online" : "offline");
-    // };
-
-    // window.addEventListener("online", handleOnlineStatusChange);
-    // window.addEventListener("offline", handleOnlineStatusChange);
-
-    return () => {
-      // window.removeEventListener("online", handleOnlineStatusChange);
-      // window.removeEventListener("offline", handleOnlineStatusChange);
-    };
+    let url = "https://jsonplaceholder.typicode.com/users";
+    fetch(url)
+      .then((response) => {
+        response.json().then((result) => {
+          setData(result);
+          localStorage.setItem("users", JSON.stringify(result));
+        });
+      })
+      .catch((error) => {
+        let collection = localStorage.getItem("users");
+        setData(JSON.parse(collection));
+        setMode("offline");
+      });
   }, []);
 
   // const User = () => {
-  //   const [data, setData] = useState([]);
-  //   const [mode, setMode] = useState("online");
-  //   useEffect(() => {
-  //     let url = "https://jsonplaceholder.typicode.com/users";
-  //     fetch(url)
-  //       .then((response) => {
-  //         response.json().then((result) => {
-  //           setData(result);
-  //           localStorage.setItem("users", JSON.stringify(result));
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         let collection = localStorage.getItem("users");
-  //         setData(JSON.parse(collection));
-  //         setMode("offline");
-  //       });
-  //   }, []);
+  // const [data, setData] = useState([]);
+  // // const [mode, setMode] = useState("online");
+  // // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         "https://jsonplaceholder.typicode.com/users"
+  //       );
+  //       const result = await response.json();
+  //       setData(result);
+  //       // localStorage.setItem("users", JSON.stringify(result));
+  //       // setMode("online");
+  //     } catch (error) {
+  //       console.log("somthing else", error);
+  //       // const collection = localStorage.getItem("users");
+  //       // setData(JSON.parse(collection));
+  //       // setMode("offline");
+  //     }
+  //   };
 
-  // console.log(data, "data");
+  //   fetchData();
+
+  //   // const handleOnlineStatusChange = () => {
+  //   //   setMode(navigator.onLine ? "online" : "offline");
+  //   // };
+
+  //   // window.addEventListener("online", handleOnlineStatusChange);
+  //   // window.addEventListener("offline", handleOnlineStatusChange);
+
+  //   return () => {
+  //     // window.removeEventListener("online", handleOnlineStatusChange);
+  //     // window.removeEventListener("offline", handleOnlineStatusChange);
+  //   };
+  // }, []);
+
   return (
     <div>
       {/* <div>
