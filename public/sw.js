@@ -21,14 +21,14 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (!navigator.online) {
-    if (event.request.url === "https://jsonplaceholder.typicode.com/users") {
-      event.waitUntil(
-        this.registration.showNotification("Internet", {
-          body: "Data Fetch Successfully",
-          icon: "/logo192.png",
-        })
-      );
-    }
+    //   if (event.request.url === "https://jsonplaceholder.typicode.com/users") {
+    //     event.waitUntil(
+    //       this.registration.showNotification("Internet", {
+    //         body: "Data Fetch Successfully",
+    //         icon: "/logo192.png",
+    //       })
+    //     );
+    //   }
     event.respondWith(
       caches.match(event.request).then((response) => {
         if (response) {
