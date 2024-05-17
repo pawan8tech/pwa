@@ -34,6 +34,16 @@ export default function swDev() {
     return outputArray;
   }
 
+  function getRandomMessage() {
+    const messages = [
+      "Don't forget to check out our new features!",
+      "Have a great day!",
+      "We have a surprise for you!",
+      "Stay tuned for more updates.",
+    ];
+    return messages[Math.floor(Math.random() * messages.length)];
+  }
+
   navigator.serviceWorker
     .register("sw.js")
     .then((registration) => {
@@ -47,6 +57,14 @@ export default function swDev() {
         })
         .then(function (subscription) {
           console.log("Push subscription successful:", subscription);
+
+          setTimeout(() => {
+            registration.showNotification("Random Notification", {
+              body: getRandomMessage(),
+              icon: "/logo192.png",
+              badge: "/favicon.ico",
+            });
+          }, 10000);
         })
         .catch(function (error) {
           console.error("Error subscribing to push notifications:", error);
