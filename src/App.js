@@ -13,6 +13,7 @@ function App() {
   useEffect(() => {
     const handleOnlineStatusChange = () => {
       setMode(navigator.onLine ? "online" : "offline");
+      console.log("--mode----", mode);
     };
 
     window.addEventListener("online", handleOnlineStatusChange);
