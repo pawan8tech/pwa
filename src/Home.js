@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { saveVideo, getAllVideos } from "./indexedDB";
+import styles from "./Home.module.css";
+
 const API_KEY = "bD7ORaO3yiUHfkFfTBfv7PTt24srtOys37wOMt5VQs7D7m3fQ6IXvj9b";
 const MAX_RESULTS = 10;
 const SEARCH_QUERY = "music";
@@ -68,16 +70,27 @@ const VideoList = () => {
     }
   };
 
+  const getShortUrl = (url) => {
+    console.log("-----url----", url);
+    const newurl = url.replace("https://www.pexels.com/video/", "");
+    console.log(newurl);
+    const arr = newurl.split("-");
+    arr.pop();
+    const capitalizeFirstLetter = (str) =>
+      str.charAt(0).toUpperCase() + str.slice(1);
+    const newArr = arr.map(capitalizeFirstLetter);
+    return newArr.join(" ");
+  };
   return (
-    <div>
+    <div className={styles.container}>
       <h1>Pexels Music Videos</h1>
       {isOffline && (
         <p>You are currently offline. Showing downloaded videos.</p>
       )}
-      <div className="video-list">
+      <div className="videoList">
         {videos.map((video) => (
-          <div key={video.id} className="video-item">
-            <h3>{video.url}</h3>
+          <div key={video.id} className={styles.videoItem}>
+            <h3>{getShortUrl(video.url)}</h3>
             <video width="560" height="315" controls>
               <source
                 src={video.blobUrl ? video.blobUrl : video.video_files[0].link}
@@ -85,7 +98,9 @@ const VideoList = () => {
               />
               Your browser does not support the video tag.
             </video>
-            <button onClick={() => handleDownload(video)}>Download</button>
+            {!isOffline && !video.blobUrl && (
+              <button onClick={() => handleDownload(video)}>Download</button>
+            )}
           </div>
         ))}
       </div>

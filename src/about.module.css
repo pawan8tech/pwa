@@ -1,0 +1,46 @@
+/* HomePage.css */
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .heading {
+    font-size: 36px;
+    color: #322626;
+    margin-bottom: 20px;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  p,
+  ul {
+    font-size: 18px;
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  ul {
+    text-align: left;
+    margin-left: 40px;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.1);
+    }
+  }

@@ -39,7 +39,7 @@ function App() {
               User
             </Link>
             <Link to="/About" className="nav-link">
-              About
+              PWA
             </Link>
           </Nav>
         </Navbar>
