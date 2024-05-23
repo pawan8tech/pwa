@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllVideos } from "./indexedDB";
+import { getAllVideos, deleteVideo } from "./indexedDB";
 import styles from "./Home.module.css";
 
 const Downloads = () => {
@@ -13,6 +13,15 @@ const Downloads = () => {
 
     fetchDownloadedVideos();
   }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteVideo(id);
+      setVideos((prevVideos) => prevVideos.filter((video) => video.id !== id));
+    } catch (error) {
+      console.error("Error deleting video:", error);
+    }
+  };
 
   const getShortUrl = (url) => {
     console.log("-----url----", url);
@@ -37,6 +46,7 @@ const Downloads = () => {
               <source src={URL.createObjectURL(video.blob)} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
+            <button onClick={() => handleDelete(video.id)}>Delete Video</button>
           </div>
         ))}
       </div>

@@ -217,15 +217,19 @@ const VideoList = () => {
     <div className={styles.container}>
       <h1>Pexels Music Videos</h1>
       {isOffline && (
-        <div>
+        <div className={styles.downloadbuttoncontainer}>
           <p>You are currently offline. You can view your downloaded videos.</p>
           <Link to="/Downloads">
-            <button>Go to Downloaded Videos</button>
+            <button className={styles.downloadbutton}>
+              Go to Downloaded Videos
+            </button>
           </Link>
         </div>
       )}
       {showInstallButton && (
-        <button onClick={handleInstallClick}>Install App</button>
+        <button className={styles.downloadbutton} onClick={handleInstallClick}>
+          Install App
+        </button>
       )}
       <div className="videoList">
         {!isOffline &&
