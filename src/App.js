@@ -20,8 +20,6 @@ function App() {
     window.addEventListener("online", handleOnlineStatusChange);
     window.addEventListener("offline", handleOnlineStatusChange);
 
-    swDev();
-
     return () => {
       window.removeEventListener("online", handleOnlineStatusChange);
       window.removeEventListener("offline", handleOnlineStatusChange);
