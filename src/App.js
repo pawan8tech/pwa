@@ -7,6 +7,7 @@ import { Link, Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./Home";
 import User from "./User";
 import About from "./About";
+import Downloads from "./Downloads";
 
 function App() {
   const [mode, setMode] = useState(navigator.onLine ? "online" : "offline");
@@ -35,6 +36,9 @@ function App() {
             <Link to="/" className="nav-link">
               Home
             </Link>
+            <Link to="/Downloads" className="nav-link">
+              Downloads
+            </Link>
             <Link to="/User" className="nav-link">
               User
             </Link>
@@ -52,6 +56,7 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/Downloads" element={<Downloads />} />
           <Route path="/User" element={<User />} />
           <Route path="/About" element={<About />} />
         </Routes>

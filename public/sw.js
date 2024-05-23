@@ -7,6 +7,7 @@ const urlsToCache = [
   "/manifest.json",
   "https://jsonplaceholder.typicode.com/users",
   "/",
+  "/Downloads",
   "/User",
   "/About",
 ];

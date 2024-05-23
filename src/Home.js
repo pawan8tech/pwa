@@ -1,5 +1,113 @@
+// import React, { useState, useEffect } from "react";
+// import { saveVideo, getAllVideos } from "./indexedDB";
+// import styles from "./Home.module.css";
+
+// const API_KEY = "bD7ORaO3yiUHfkFfTBfv7PTt24srtOys37wOMt5VQs7D7m3fQ6IXvj9b";
+// const MAX_RESULTS = 10;
+// const SEARCH_QUERY = "music";
+
+// const VideoList = () => {
+//   const [videos, setVideos] = useState([]);
+//   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+//   useEffect(() => {
+//     const fetchVideos = async () => {
+//       if (navigator.onLine) {
+//         try {
+//           const response = await fetch(
+//             `https://api.pexels.com/videos/search?query=${SEARCH_QUERY}&per_page=${MAX_RESULTS}`,
+//             {
+//               headers: {
+//                 Authorization: API_KEY,
+//               },
+//             }
+//           );
+//           if (!response.ok) {
+//             throw new Error("Network response was not ok");
+//           }
+//           const data = await response.json();
+//           setVideos(data.videos);
+//         } catch (error) {
+//           console.error("Error fetching videos:", error);
+//         }
+//       } else {
+//         // Fetch videos from IndexedDB if offline
+//         const storedVideos = await getAllVideos();
+//         console.log("Fetched videos from IndexedDB:", storedVideos);
+//         setVideos(
+//           storedVideos.map((video) => ({
+//             ...video,
+//             blobUrl: URL.createObjectURL(video.blob),
+//           }))
+//         );
+//       }
+//     };
+
+//     fetchVideos();
+
+//     const handleOnlineStatus = () => setIsOffline(!navigator.onLine);
+//     window.addEventListener("online", handleOnlineStatus);
+//     window.addEventListener("offline", handleOnlineStatus);
+
+//     return () => {
+//       window.removeEventListener("online", handleOnlineStatus);
+//       window.removeEventListener("offline", handleOnlineStatus);
+//     };
+//   }, []);
+
+//   const handleDownload = async (video) => {
+//     try {
+//       const response = await fetch(video.video_files[0].link, { mode: "cors" });
+//       if (!response.ok) {
+//         throw new Error("Failed to fetch video");
+//       }
+//       const blob = await response.blob();
+//       await saveVideo({ id: video.id, url: video.url, blob });
+//       console.log("Video saved to IndexedDB:", video.id);
+//       alert("Video downloaded and saved for offline use.");
+//     } catch (error) {
+//       console.error("Error downloading video:", error);
+//     }
+//   };
+
+//   const getShortUrl = (url) => {
+//     console.log("-----url----", url);
+//     const newurl = url.replace("https://www.pexels.com/video/", "");
+//     console.log(newurl);
+//     const arr = newurl.split("-");
+//     arr.pop();
+//     const capitalizeFirstLetter = (str) =>
+//       str.charAt(0).toUpperCase() + str.slice(1);
+//     const newArr = arr.map(capitalizeFirstLetter);
+//     return newArr.join(" ");
+//   };
+//   return (
+//     <div className={styles.container}>
+//       <h1>Pexels Music Videos</h1>
+//       {isOffline && <p>You are currently offline. See downloaded videos.</p>}
+//       <div className="videoList">
+//         {videos.map((video) => (
+//           <div key={video.id} className={styles.videoItem}>
+//             <h3>{getShortUrl(video.url)}</h3>
+//             <video width="560" height="315" controls>
+//               <source src={video.blobUrl} type="video/mp4" />
+//               Your browser does not support the video tag.
+//             </video>
+//             {!isOffline && !video.blobUrl && (
+//               <button onClick={() => handleDownload(video)}>Download</button>
+//             )}
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VideoList;
+
 import React, { useState, useEffect } from "react";
-import { saveVideo, getAllVideos } from "./indexedDB";
+import { saveVideo } from "./indexedDB";
+import { Link } from "react-router-dom";
 import styles from "./Home.module.css";
 
 const API_KEY = "bD7ORaO3yiUHfkFfTBfv7PTt24srtOys37wOMt5VQs7D7m3fQ6IXvj9b";
@@ -30,22 +138,21 @@ const VideoList = () => {
         } catch (error) {
           console.error("Error fetching videos:", error);
         }
-      } else {
-        // Fetch videos from IndexedDB if offline
-        const storedVideos = await getAllVideos();
-        console.log("Fetched videos from IndexedDB:", storedVideos);
-        setVideos(
-          storedVideos.map((video) => ({
-            ...video,
-            blobUrl: URL.createObjectURL(video.blob),
-          }))
-        );
       }
     };
 
-    fetchVideos();
+    const handleOnlineStatus = () => {
+      const onlineStatus = navigator.onLine;
+      setIsOffline(!onlineStatus);
 
-    const handleOnlineStatus = () => setIsOffline(!navigator.onLine);
+      // Fetch videos when coming back online
+      if (onlineStatus) {
+        fetchVideos();
+      }
+    };
+
+    fetchVideos(); // Initial fetch
+
     window.addEventListener("online", handleOnlineStatus);
     window.addEventListener("offline", handleOnlineStatus);
 
@@ -57,10 +164,7 @@ const VideoList = () => {
 
   const handleDownload = async (video) => {
     try {
-      const response = await fetch(video.video_files[0].link, { mode: "cors" });
-      if (!response.ok) {
-        throw new Error("Failed to fetch video");
-      }
+      const response = await fetch(video.video_files[0].link);
       const blob = await response.blob();
       await saveVideo({ id: video.id, url: video.url, blob });
       console.log("Video saved to IndexedDB:", video.id);
@@ -71,44 +175,246 @@ const VideoList = () => {
   };
 
   const getShortUrl = (url) => {
-    console.log("-----url----", url);
-    const newurl = url.replace("https://www.pexels.com/video/", "");
-    console.log(newurl);
-    const arr = newurl.split("-");
-    arr.pop();
-    const capitalizeFirstLetter = (str) =>
-      str.charAt(0).toUpperCase() + str.slice(1);
-    const newArr = arr.map(capitalizeFirstLetter);
-    return newArr.join(" ");
+    return url.replace("https://www.pexels.com/video/", "");
   };
+
   return (
     <div className={styles.container}>
       <h1>Pexels Music Videos</h1>
       {isOffline && (
-        <p>You are currently offline. Showing downloaded videos.</p>
+        <div>
+          <p>You are currently offline. You can view your downloaded videos.</p>
+          <Link to="/Downloads">
+            <button>Go to Downloaded Videos</button>
+          </Link>
+        </div>
       )}
       <div className="videoList">
-        {videos.map((video) => (
-          <div key={video.id} className={styles.videoItem}>
-            <h3>{getShortUrl(video.url)}</h3>
-            <video width="560" height="315" controls>
-              <source
-                src={video.blobUrl ? video.blobUrl : video.video_files[0].link}
-                type="video/mp4"
-              />
-              Your browser does not support the video tag.
-            </video>
-            {!isOffline && !video.blobUrl && (
+        {!isOffline &&
+          videos.map((video) => (
+            <div key={video.id} className={styles.videoItem}>
+              <h3>{getShortUrl(video.url)}</h3>
+              <video width="560" height="315" controls>
+                <source src={video.video_files[0].link} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
               <button onClick={() => handleDownload(video)}>Download</button>
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
       </div>
     </div>
   );
 };
 
 export default VideoList;
+
+// import React, { useState, useEffect } from "react";
+// import { saveVideo } from "./indexedDB";
+// import { Link } from "react-router-dom";
+
+// const API_KEY = "bD7ORaO3yiUHfkFfTBfv7PTt24srtOys37wOMt5VQs7D7m3fQ6IXvj9b";
+// const MAX_RESULTS = 10;
+// const SEARCH_QUERY = "music";
+
+// const VideoList = () => {
+//   const [videos, setVideos] = useState([]);
+//   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+//   useEffect(() => {
+//     const fetchVideos = async () => {
+//       if (navigator.onLine) {
+//         try {
+//           const response = await fetch(
+//             `https://api.pexels.com/videos/search?query=${SEARCH_QUERY}&per_page=${MAX_RESULTS}`,
+//             {
+//               headers: {
+//                 Authorization: API_KEY,
+//               },
+//             }
+//           );
+//           if (!response.ok) {
+//             throw new Error("Network response was not ok");
+//           }
+//           const data = await response.json();
+//           setVideos(data.videos);
+//         } catch (error) {
+//           console.error("Error fetching videos:", error);
+//         }
+//       }
+//     };
+
+//     fetchVideos();
+
+//     const handleOnlineStatus = () => setIsOffline(!navigator.onLine);
+//     window.addEventListener("online", handleOnlineStatus);
+//     window.addEventListener("offline", handleOnlineStatus);
+
+//     return () => {
+//       window.removeEventListener("online", handleOnlineStatus);
+//       window.removeEventListener("offline", handleOnlineStatus);
+//     };
+//   }, []);
+
+//   const handleDownload = async (video) => {
+//     try {
+//       const response = await fetch(video.video_files[0].link);
+//       const blob = await response.blob();
+//       await saveVideo({ id: video.id, url: video.url, blob });
+//       console.log("Video saved to IndexedDB:", video.id);
+//       alert("Video downloaded and saved for offline use.");
+//     } catch (error) {
+//       console.error("Error downloading video:", error);
+//     }
+//   };
+
+//   const getShortUrl = (url) => {
+//     console.log("-----url----", url);
+//     const newurl = url.replace("https://www.pexels.com/video/", "");
+//     console.log(newurl);
+//     const arr = newurl.split("-");
+//     arr.pop();
+//     const capitalizeFirstLetter = (str) =>
+//       str.charAt(0).toUpperCase() + str.slice(1);
+//     const newArr = arr.map(capitalizeFirstLetter);
+//     return newArr.join(" ");
+//   };
+
+//   return (
+//     <div>
+//       <h1>Pexels Music Videos</h1>
+//       {/* {isOffline && (
+//         <div>
+//           <p>You are currently offline. You can view your downloaded videos.</p>
+//           <Link to="/Downloads">
+//             <button>Go to Downloaded Videos</button>
+//           </Link>
+//         </div>
+//       )} */}
+//       <div className="video-list">
+//         {/* {!isOffline && */}
+//         {videos.map((video) => (
+//           <div key={video.id} className="video-item">
+//             <h3>{getShortUrl(video.url)}</h3>
+//             <video width="560" height="315" controls>
+//               <source src={video.video_files[0].link} type="video/mp4" />
+//               Your browser does not support the video tag.
+//             </video>
+//             <button onClick={() => handleDownload(video)}>Download</button>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VideoList;
+// this is final working but not pushed
+// import React, { useState, useEffect } from "react";
+// import { saveVideo, getAllVideos } from "./indexedDB";
+// import styles from "./Home.module.css";
+
+// const API_KEY = "bD7ORaO3yiUHfkFfTBfv7PTt24srtOys37wOMt5VQs7D7m3fQ6IXvj9b";
+// const MAX_RESULTS = 10;
+// const SEARCH_QUERY = "music";
+
+// const VideoList = () => {
+//   const [videos, setVideos] = useState([]);
+//   const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+//   useEffect(() => {
+//     const fetchVideos = async () => {
+//       if (navigator.onLine) {
+//         try {
+//           const response = await fetch(
+//             `https://api.pexels.com/videos/search?query=${SEARCH_QUERY}&per_page=${MAX_RESULTS}`,
+//             {
+//               headers: {
+//                 Authorization: API_KEY,
+//               },
+//             }
+//           );
+//           if (!response.ok) {
+//             throw new Error("Network response was not ok");
+//           }
+//           const data = await response.json();
+//           setVideos(data.videos);
+//         } catch (error) {
+//           console.error("Error fetching videos:", error);
+//         }
+//       } else {
+//         // Fetch videos from IndexedDB if offline
+//         const storedVideos = await getAllVideos();
+//         console.log("Fetched videos from IndexedDB:", storedVideos);
+//         setVideos(
+//           storedVideos.map((video) => ({
+//             ...video,
+//             blobUrl: URL.createObjectURL(video.blob),
+//           }))
+//         );
+//       }
+//     };
+
+//     fetchVideos();
+
+//     const handleOnlineStatus = () => setIsOffline(!navigator.onLine);
+//     window.addEventListener("online", handleOnlineStatus);
+//     window.addEventListener("offline", handleOnlineStatus);
+
+//     return () => {
+//       window.removeEventListener("online", handleOnlineStatus);
+//       window.removeEventListener("offline", handleOnlineStatus);
+//     };
+//   }, []);
+
+//   const handleDownload = async (video) => {
+//     try {
+//       const response = await fetch(video.video_files[0].link, { mode: "cors" });
+//       if (!response.ok) {
+//         throw new Error("Failed to fetch video");
+//       }
+//       const blob = await response.blob();
+//       await saveVideo({ id: video.id, url: video.url, blob });
+//       console.log("Video saved to IndexedDB:", video.id);
+//       alert("Video downloaded and saved for offline use.");
+//     } catch (error) {
+//       console.error("Error downloading video:", error);
+//     }
+//   };
+
+//   const getShortUrl = (url) => {
+//     console.log("-----url----", url);
+//     const newurl = url.replace("https://www.pexels.com/video/", "");
+//     console.log(newurl);
+//     const arr = newurl.split("-");
+//     arr.pop();
+//     const capitalizeFirstLetter = (str) =>
+//       str.charAt(0).toUpperCase() + str.slice(1);
+//     const newArr = arr.map(capitalizeFirstLetter);
+//     return newArr.join(" ");
+//   };
+//   return (
+//     <div className={styles.container}>
+//       <h1>Pexels Music Videos</h1>
+//       {isOffline && <p>You are currently offline. See downloaded videos.</p>}
+//       <div className="videoList">
+//         {videos.map((video) => (
+//           <div key={video.id} className={styles.videoItem}>
+//             <h3>{getShortUrl(video.url)}</h3>
+//             <video width="560" height="315" controls>
+//               <source src={video.blobUrl} type="video/mp4" />
+//               Your browser does not support the video tag.
+//             </video>
+//             {!isOffline && !video.blobUrl && (
+//               <button onClick={() => handleDownload(video)}>Download</button>
+//             )}
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VideoList;
 
 // // this working fine but when after the offline user didnot able to download
 // import React, { useState, useEffect } from "react";
