@@ -31,7 +31,7 @@ const Downloads = () => {
       <h1>Downloaded Videos</h1>
       <div className="videoList">
         {videos.map((video) => (
-          <div key={video.id} className="videoItem">
+          <div key={video.id} className={styles.videoItem}>
             <h3>{getShortUrl(video.url)}</h3>
             <video width="560" height="315" controls>
               <source src={URL.createObjectURL(video.blob)} type="video/mp4" />
