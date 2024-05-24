@@ -1,6 +1,5 @@
-// import { Inter } from "next/font/google";
+
 import "./about.module.css";
-// const inter = Inter({ subsets: ["latin"] });
 
 export default function About() {
   return (
