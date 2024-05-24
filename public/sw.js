@@ -1,4 +1,4 @@
-const cacheName = "appV1";
+const cacheName = "appV2";
 const urlsToCache = [
   "/index.html",
   "/static/js/bundle.js",
