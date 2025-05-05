@@ -1,0 +1,37 @@
+.budget-recurring {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .budget-recurring input {
+    display: block;
+    width: 80%;
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .budget-recurring button {
+    padding: 10px 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .budget-recurring ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .budget-recurring li {
+    background: #f8f9fa;
+    padding: 10px;
+    margin: 5px auto;
+    width: 80%;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  

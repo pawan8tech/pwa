@@ -1,0 +1,50 @@
+.budget-tracker {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .budget-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .budget-input input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .budget-summary {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+  
+  .budget-summary p {
+    margin: 5px 0;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #eee;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  
+  .progress {
+    height: 100%;
+    background: #4caf50;
+  }
+  
+  .alert {
+    color: red;
+    font-weight: bold;
+  }

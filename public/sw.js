@@ -10,6 +10,9 @@ const urlsToCache = [
   "/Downloads",
   "/User",
   "/About",
+  "/Reports",
+  "/ExpenseTracker",
+  "/Settings",
 ];
 
 self.addEventListener("install", (event) => {

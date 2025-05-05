@@ -1,0 +1,40 @@
+.wrapper{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; 
+}
+.header{
+    height: 10vh;
+}
+.pageContainer{
+    display: flex;
+    flex-direction: row; 
+    height: 90vh; 
+    width: 100vw;
+} 
+.mobilePageContianer{
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+    width: 100vw;
+    /* background-color:lightblue; */
+}
+.container{
+    background-color: aquamarine; 
+    width: 84vw;
+    height: 90vh;
+    overflow-y:auto ;
+} 
+.mobileContianer{
+    height: 100%;
+    width: 100vw;
+    background-color: aquamarine; 
+    overflow-y:auto ;
+}
+.sidepanelWrapper{
+    width: 16vw; 
+    height: 90vh;
+} 
+.footer{
+    /* height: 10vh; */
+}
