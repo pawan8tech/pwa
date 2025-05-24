@@ -6,7 +6,7 @@ import "./BottomNavigation.css";
 const BottomNavigation = () => {
   return (
     <nav className="bottom-navigation">
-      <NavLink to="/" className="nav-item">
+      <NavLink to="/dashboard" className="nav-item">
         <Home size={24} />
         <span>Home</span>
       </NavLink>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Settings.css";
+import "./Settings.css";
 
 function Settings({ onThemeChange, onCurrencyChange }) {
   const [currency, setCurrency] = useState("USD");

@@ -1,0 +1,22 @@
+.reports-container {
+    /* margin: 20px auto;
+    padding: 20px; */
+    border-radius: 8px;
+    text-align: center; 
+    
+}
+.chartsContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.chart-wrapper {
+    
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}

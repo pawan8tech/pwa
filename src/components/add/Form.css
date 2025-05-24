@@ -1,6 +1,6 @@
 /* Form.css */
 .form {
-    max-width: 500px;
+    min-width: 30vw;
     margin: auto;
     padding: 1.5rem;
     background: #fff;
@@ -47,22 +47,6 @@
     background-color: #45a049;
   }
   
-  /* Responsive for desktop */
-  @media (min-width: 768px) {
-    .form-group {
-      flex-direction: row;
-      align-items: center;
-    }
-  
-    .form-group label {
-      width: 30%;
-      margin-bottom: 0;
-    }
-  
-    .form-group input,
-    .form-group select {
-      width: 70%;
-    }
-  } 
+
   
   

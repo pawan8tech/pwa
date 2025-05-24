@@ -15,7 +15,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <ul className="sidebar-menu">
         <li>
-          <Link to="/" className="sidebar-link">
+          <Link to="/dashboard" className="sidebar-link">
             <Home size={20} />
             Dashboard
           </Link>
@@ -36,12 +36,6 @@ const Sidebar = () => {
           <Link to="/budget" className="sidebar-link">
             <CreditCard size={20} />
             Budget
-          </Link>
-        </li>
-        <li>
-          <Link to="/profile" className="sidebar-link">
-            <User size={20} />
-            Profile
           </Link>
         </li>
         <li>

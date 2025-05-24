@@ -1,42 +1,41 @@
 import React, { useState } from "react";
-import "../styles/Form.css";
+import "./Form.css";
 import { toast } from "react-hot-toast";
 
-function AddRecurringForm() {
-  const [recurring, setRecurring] = useState({
+function AddExpenseForm() {
+  const [expense, setExpense] = useState({
     name: "",
     amount: "",
     category: "",
-    interval: "",
+    date: "",
   });
 
   const handleChange = (e) => {
-    setRecurring({ ...recurring, [e.target.name]: e.target.value });
+    setExpense({ ...expense, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (
-      !recurring.name ||
-      !recurring.amount ||
-      !recurring.category ||
-      !recurring.date
+      !expense.name ||
+      !expense.amount ||
+      !expense.category ||
+      !expense.date
     ) {
       toast.error("Please fill in all fields!");
       return;
     }
 
-    if (recurring.amount <= 0) {
+    if (expense.amount <= 0) {
       toast.error("Amount must be greater than 0!");
       return;
     }
 
     // API Call (simulate)
-    console.log("Submitting recurring:", recurring);
-    toast.success("Recurring Expense added successfully!");
+    console.log("Submitting expense:", expense);
+    toast.success("Expense added successfully!");
 
-    setRecurring({
+    setExpense({
       name: "",
       amount: "",
       category: "",
@@ -46,13 +45,13 @@ function AddRecurringForm() {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
-      <h2>Add Recurring Expense</h2>
+      <h2>Add Expense</h2>
 
       <div className="form-group">
         <label>Name</label>
         <input
           name="name"
-          value={recurring.name}
+          value={expense.name}
           onChange={handleChange}
           required
         />
@@ -63,7 +62,7 @@ function AddRecurringForm() {
         <input
           name="amount"
           type="number"
-          value={recurring.amount}
+          value={expense.amount}
           onChange={handleChange}
           required
         />
@@ -73,32 +72,28 @@ function AddRecurringForm() {
         <label>Category</label>
         <input
           name="category"
-          value={recurring.category}
+          value={expense.category}
           onChange={handleChange}
           required
         />
       </div>
 
       <div className="form-group">
-        <label>Interval</label>
-        <select
-          name="interval"
-          value={recurring.interval}
+        <label>Date</label>
+        <input
+          name="date"
+          type="date"
+          value={expense.date}
           onChange={handleChange}
           required
-        >
-          <option value="">Select Interval</option>
-          <option value="Weekly">Weekly</option>
-          <option value="Monthly">Monthly</option>
-          <option value="Yearly">Yearly</option>
-        </select>
+        />
       </div>
 
       <button type="submit" className="submit-btn">
-        Add Recurring
+        Add Expense
       </button>
     </form>
   );
 }
 
-export default AddRecurringForm;
+export default AddExpenseForm;

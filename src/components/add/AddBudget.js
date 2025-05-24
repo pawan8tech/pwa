@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Form.css";
+import "./Form.css";
 import { toast } from "react-hot-toast";
 
 function AddBudgetForm() {

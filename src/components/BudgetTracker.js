@@ -26,7 +26,7 @@ const BudgetTracker = ({ expenses = [], recurringExpenses = [] }) => {
 
   return (
     <div className="budget-tracker">
-      <h2>Budget Tracker</h2>
+      {/* <h2>Budget Tracker</h2>
       <div className="budget-input">
         <label>Set Monthly Budget:</label>
         <input
@@ -34,7 +34,7 @@ const BudgetTracker = ({ expenses = [], recurringExpenses = [] }) => {
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
         />
-      </div>
+      </div> */}
       <div className="budget-summary">
         <p>Total Expenses: ${totalExpenses.toFixed(2)}</p>
         <p>Recurring Expenses: ${totalRecurring.toFixed(2)}</p>

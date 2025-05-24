@@ -1,6 +1,6 @@
 import React from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-import "../styles/MonthlySummary.css";
+import "./MonthlySummary.css";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -32,7 +32,7 @@ function MonthlySummary({
   return (
     <div className="monthly-summary">
       <h3>Monthly Summary</h3>
-      <div className="summary-details">
+      {/* <div className="summary-details">
         <p>
           <strong>Total Expenses:</strong> {currency}{" "}
           {totalExpenses?.toFixed(2)}
@@ -45,7 +45,7 @@ function MonthlySummary({
           <strong>Remaining Budget:</strong> {currency}{" "}
           {remainingBudget.toFixed(2)}
         </p>
-      </div>
+      </div> */}
       <PieChart width={300} height={300}>
         <Pie
           data={data}

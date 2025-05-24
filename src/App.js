@@ -5,10 +5,11 @@ import "./App.css";
 import Layout from "./Layout/Layout";
 import AuthGuard from "./auth/AuthGuard";
 import ExpenseTracker from "./pages/ExpenseTracker";
-import Reports from "./pages/Reports";
+import Reports from "./pages/Report";
 import Settings from "./pages/Settings";
 import Login from "./pages/Login";
 import AddPage from "./pages/AddPage";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
                     <Layout>
                       <div className="main-content">
                         <Routes>
-                          <Route path="/" element={<ExpenseTracker />} />
+                          <Route path="/dashboard" element={<Dashboard />} />
                           <Route path="/reports" element={<Reports />} />
                           <Route path="/addpages" element={<AddPage />} />
                           <Route path="/settings" element={<Settings />} />

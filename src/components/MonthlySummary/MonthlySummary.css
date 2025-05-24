@@ -1,12 +1,14 @@
 /* MonthlySummary.css */
 .monthly-summary {
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 800px; 
+    height: 100%;
+    /* margin: 20px auto; */
     padding: 20px;
     background: var(--background-card, #fff);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; 
+
   }
   
   .summary-header {

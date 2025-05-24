@@ -1,29 +1,52 @@
 /* AddPage.css */
 .add-page-container {
     padding: 1rem;
+    display: flex; 
+    flex-direction: column;
+    align-items: center; 
   }
-  
-  .tab-buttons {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 1rem;
-  }
-  
-  .tab-buttons button {
-    padding: 10px 20px;
-    background-color: #eee;
-    border: none;
-    border-radius: 20px;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-  
-  .tab-buttons button.active {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  .form-container {
-    margin-top: 20px;
-  }
-  
+.tab{
+  display: flex;
+  flex-direction: row;  
+  justify-content: space-between;
+  border: 1px solid black; 
+  max-width: fit-content;
+  background-color: #eee;
+  border-radius: 2rem; 
+  margin-bottom: 1.5rem;
+} 
+.active{
+  background-color: #4caf50;
+  color: white;
+}
+
+.tabContentLeft{
+   padding: 0.5rem 2rem; 
+   border-bottom-left-radius: 2rem;
+   border-top-left-radius: 2rem ;
+} 
+.tabContent{
+  padding: 0.5rem 2rem;
+}
+.tabContentRight{
+  padding: 0.5rem 2rem;
+   border-bottom-right-radius: 2rem;
+   border-top-right-radius: 2rem ;
+}
+
+@media (max-width: 600px) {
+  .tabContentLeft{
+   padding: 0.5rem 1rem; 
+   border-bottom-left-radius: 2rem;
+   border-top-left-radius: 2rem ;
+} 
+.tabContent{
+  padding: 0.5rem 1rem ;
+}
+.tabContentRight{
+   padding: 0.5rem 1rem ;
+   border-bottom-right-radius: 2rem;
+   border-top-right-radius: 2rem ;
+}
+
+}

@@ -23,13 +23,13 @@
     background-color: aquamarine; 
     width: 84vw;
     height: 90vh;
-    overflow-y:auto ;
+    overflow-y:scroll ;
 } 
 .mobileContianer{
     height: 100%;
     width: 100vw;
     background-color: aquamarine; 
-    overflow-y:auto ;
+    overflow-y:scroll ;
 }
 .sidepanelWrapper{
     width: 16vw; 
